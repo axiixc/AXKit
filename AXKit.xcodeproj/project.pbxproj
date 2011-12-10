@@ -16,6 +16,7 @@
 		B3A202791492F59000077100 /* AXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A202781492F59000077100 /* AXImageFetchRequest.m */; };
 		B3A2028214930CEA00077100 /* AXConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2028114930CEA00077100 /* AXConstants.m */; };
 		B3A20284149321F000077100 /* SampleApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A20283149321F000077100 /* SampleApp.storyboard */; };
+		B3A20287149326D300077100 /* SAXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A20286149326D300077100 /* SAXImageFetchRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		B3A2028014930CEA00077100 /* AXConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXConstants.h; path = AXKit/AXConstants.h; sourceTree = "<group>"; };
 		B3A2028114930CEA00077100 /* AXConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXConstants.m; path = AXKit/AXConstants.m; sourceTree = "<group>"; };
 		B3A20283149321F000077100 /* SampleApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SampleApp.storyboard; path = "Sample App/SampleApp.storyboard"; sourceTree = SOURCE_ROOT; };
+		B3A20285149326D300077100 /* SAXImageFetchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAXImageFetchRequest.h; path = "Sample App/SAXImageFetchRequest.h"; sourceTree = SOURCE_ROOT; };
+		B3A20286149326D300077100 /* SAXImageFetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAXImageFetchRequest.m; path = "Sample App/SAXImageFetchRequest.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +89,8 @@
 				B3A2025F1492F13000077100 /* AppDelegate.h */,
 				B3A202601492F13000077100 /* AppDelegate.m */,
 				B3A20283149321F000077100 /* SampleApp.storyboard */,
+				B3A20285149326D300077100 /* SAXImageFetchRequest.h */,
+				B3A20286149326D300077100 /* SAXImageFetchRequest.m */,
 				B3A202571492F13000077100 /* Supporting Files */,
 			);
 			name = "Sample App";
@@ -183,6 +188,7 @@
 				B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */,
 				B3A202791492F59000077100 /* AXImageFetchRequest.m in Sources */,
 				B3A2028214930CEA00077100 /* AXConstants.m in Sources */,
+				B3A20287149326D300077100 /* SAXImageFetchRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

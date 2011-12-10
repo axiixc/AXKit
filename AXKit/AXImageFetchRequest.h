@@ -160,8 +160,8 @@ extern NSString * const kAXImageFetchRequestErrorImageURLKey;
 - (void)cancel;
 
 /* These properties are described above */
-@property (nonatomic, strong) AXImageFetchRequestProgressBlock progressBlock;
-@property (nonatomic, strong) AXImageFetchRequestCompletionBlock completionBlock;
+@property (nonatomic, copy) AXImageFetchRequestProgressBlock progressBlock;
+@property (nonatomic, copy) AXImageFetchRequestCompletionBlock completionBlock;
 @property (nonatomic) dispatch_queue_t callbackQueue;
 
 /* The current state of the request */
@@ -171,5 +171,9 @@ extern NSString * const kAXImageFetchRequestErrorImageURLKey;
  * is AXImageFetchRequestStateError.
  */
 @property (nonatomic, readonly) NSInteger requestErrorCode;
+
+/* These methods are described above */
++ (BOOL)removeCachedImageAtURL:(NSURL *)url;
++ (BOOL)removeAllCachedImages;
 
 @end

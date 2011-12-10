@@ -19,6 +19,8 @@ NSInteger const kAXImageFetchRequestErrorURLConnectionFailed = 6;
 
 NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
 
+#define AXImageFetchRequestCacheDirectory() [NSTemporaryDirectory() stringByAppendingPathComponent:@"com.axiixc.AXKit.AXImageFetchRequest"]
+
 @interface AXImageFetchRequest ()
 - (void)callCompletionBlockForErrorCode:(NSInteger)errorCode;
 - (void)callCompletionBlockForErrorCode:(NSInteger)errorCode error:(NSError *)error;
@@ -52,7 +54,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
         return NO;
     }
     
-    return [[NSFileManager defaultManager] fileExistsAtPath:[self cachePathForImageAtURL:url] isDirectory:NO];
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self cachePathForImageAtURL:url]];
 }
 
 + (NSString *)cachePathForImageAtURL:(NSURL *)url
@@ -61,7 +63,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
         return nil;
     }
     
-    return [NSTemporaryDirectory() stringByAppendingString:
+    return [AXImageFetchRequestCacheDirectory() stringByAppendingPathComponent:
             [[[url absoluteString]
               stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
              stringByReplacingOccurrencesOfString:@":" withString:@"_"]];
@@ -95,19 +97,16 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
 {
     // Fast path, for images that already exist
     if ([self cacheContainsImageAtURL:url]) {
-        if (completionBlock != NULL) {
-            completionBlock([self cachePathForImageAtURL:url], nil);
-        }
-        
+        AX_DispatchAsyncOnQueue(dispatch_get_current_queue(), completionBlock, [self cachePathForImageAtURL:url], nil);
         return nil;
     }
     
     // Using the standard request method
     AXImageFetchRequest * request = [[self alloc] initWithURL:url];
     
-    if (request == nil && completionBlock != NULL) {
+    if (request == nil) {
         NSError * error = [NSError errorWithDomain:kAXErrorDomain code:kAXImageFetchRequestErrorInvalidURL userInfo:nil];
-        completionBlock(nil, error);
+        AX_DispatchAsyncOnQueue(dispatch_get_current_queue(), completionBlock, nil, error);
     }
     else {
         request.progressBlock = progressBlock;
@@ -148,7 +147,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
         return NO;
     }
     
-    NSString * temporaryPath = [_finalCachePath stringByAppendingPathExtension:@"XXXXXX"];
+    NSString * temporaryPath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"XXXXXXXXXXXX"];
     const char * temporaryFileTemplateCString = [temporaryPath fileSystemRepresentation];
     char * temporaryFileNameCString = (char *) malloc(strlen(temporaryFileTemplateCString) + 1);
     strcpy(temporaryFileNameCString, temporaryFileTemplateCString);
@@ -156,6 +155,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
     
     if (fileDescriptor == -1) {
         [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorTemporaryFile];
+        return NO;
     }
     
     _tempCachePath = [[NSFileManager defaultManager] stringWithFileSystemRepresentation:temporaryFileNameCString length:strlen(temporaryFileNameCString)];
@@ -163,7 +163,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
     
     free(temporaryFileNameCString);
     
-    NSURLRequest * request = [NSURLRequest requestWithURL:_imageURL];
+    NSURLRequest * request = [NSURLRequest requestWithURL:_imageURL cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:60];
     _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
     [_connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     [_connection start];
@@ -195,32 +195,48 @@ didReceiveResponse:(NSURLResponse *)response
         }
     }
     
+    NSLog(@"Response: %@", response);
+    
     _filesize = [response expectedContentLength];
-    AX_DispatchSyncOnQueue(_callbackQueue, _progressBlock, 0, _filesize);
+    AX_DispatchAsyncOnQueue(_callbackQueue, _progressBlock, 0, _filesize);
 }
 
 - (void)connection:(NSURLConnection *)connection
     didReceiveData:(NSData *)data
 {
     [_tempFileHandle writeData:data];
-    AX_DispatchSyncOnQueue(_callbackQueue, _progressBlock, [_tempFileHandle offsetInFile], _filesize);
+    long long downloaded = [_tempFileHandle offsetInFile];
+    AX_DispatchAsyncOnQueue(_callbackQueue, _progressBlock, downloaded, _filesize);
 }
 
 #define CLOSE_TEMP_FILE() [_tempFileHandle closeFile], _tempFileHandle = nil
+#define TRY_MOVE() [[NSFileManager defaultManager] moveItemAtPath:_tempCachePath toPath:_finalCachePath error:&error]
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
+    NSLog(@"finish");
     CLOSE_TEMP_FILE();
     
     NSError * error = nil;
-    [[NSFileManager defaultManager] moveItemAtPath:_tempCachePath toPath:_finalCachePath error:&error];
-    
+    TRY_MOVE();
+    if (error.code == NSFileNoSuchFileError) {
+        if (![[NSFileManager defaultManager] fileExistsAtPath:AXImageFetchRequestCacheDirectory()])
+        {
+            NSError * makeDirError = nil;
+            [[NSFileManager defaultManager] createDirectoryAtPath:AXImageFetchRequestCacheDirectory() withIntermediateDirectories:YES attributes:nil error:&makeDirError];
+            if (!makeDirError) {
+                error = nil;
+                TRY_MOVE();
+            }
+        }
+    }
+          
     if (error) {
         [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorMovingIntoPlace error:error];
     }
     else {
         _requestState = AXImageFetchRequestStateCompleted;
-        AX_DispatchSyncOnQueue(_callbackQueue, _completionBlock, _finalCachePath, nil);
+        AX_DispatchAsyncOnQueue(_callbackQueue, _completionBlock, _finalCachePath, nil);
     }
 }
 
@@ -231,13 +247,42 @@ didReceiveResponse:(NSURLResponse *)response
     
     [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorURLConnectionFailed error:error];
 }
+
+#pragma mark - Cleanup Methods
+
++ (BOOL)removeCachedImageAtURL:(NSURL *)url
+{
+    NSString * cachedPath = [self cachePathForImageAtURL:url];
+    
+    NSError * error = nil;
+    [[NSFileManager defaultManager] removeItemAtPath:cachedPath error:&error];
+    
+    return (error != nil);
+}
+
++ (BOOL)removeAllCachedImages
+{
+    NSError * error = nil;
+    __block BOOL hasError = NO;
+    
+    NSArray * directoryListing = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:AXImageFetchRequestCacheDirectory() error:&error];
+    if (!error) {
+        [directoryListing enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSError * delError = nil;
+            [[NSFileManager defaultManager] removeItemAtPath:[AXImageFetchRequestCacheDirectory() stringByAppendingPathComponent:obj] error:&delError];
+            hasError |= (delError != nil);
+        }];
+    }
+    
+    return (error != nil) | hasError;
+}
                                    
 #pragma mark - Private helper methods
 
 - (void)callCompletionBlockForErrorCode:(NSInteger)errorCode
 {
     NSDictionary * userInfo = [NSDictionary dictionaryWithObject:_imageURL forKey:kAXImageFetchRequestErrorImageURLKey];
-    NSError * error = [NSError errorWithDomain:kAXErrorDomain code:_requestErrorCode userInfo:userInfo];
+    NSError * error = [NSError errorWithDomain:kAXErrorDomain code:errorCode userInfo:userInfo];
     
     [self callCompletionBlockForErrorCode:errorCode error:error];
 }
@@ -248,7 +293,7 @@ didReceiveResponse:(NSURLResponse *)response
     _requestErrorCode = errorCode;
     
     dispatch_once(&_hasCalledCompletionBlock, ^{
-        AX_DispatchSyncOnQueue(_callbackQueue, _completionBlock, nil, error);
+        AX_DispatchAsyncOnQueue(_callbackQueue, _completionBlock, nil, error);
     });
 }
 
