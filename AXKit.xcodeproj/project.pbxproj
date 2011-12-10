@@ -10,9 +10,9 @@
 		B3A202511492F13000077100 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A202501492F13000077100 /* UIKit.framework */; };
 		B3A202531492F13000077100 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A202521492F13000077100 /* Foundation.framework */; };
 		B3A202551492F13000077100 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A202541492F13000077100 /* CoreGraphics.framework */; };
-		B3A2025B1492F13000077100 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B3A202591492F13000077100 /* InfoPlist.strings */; };
 		B3A2025D1492F13000077100 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2025C1492F13000077100 /* main.m */; };
 		B3A202611492F13000077100 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A202601492F13000077100 /* AppDelegate.m */; };
+		B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2026E1492F1AF00077100 /* AXImageCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,12 +20,14 @@
 		B3A202501492F13000077100 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B3A202521492F13000077100 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3A202541492F13000077100 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		B3A202581492F13000077100 /* AXKit-Info.plist */ = {isa = PBXFileReference; path = "AXKit-Info.plist"; sourceTree = "<group>"; };
-		B3A2025A1492F13000077100 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		B3A2025C1492F13000077100 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		B3A2025E1492F13000077100 /* AXKit-Prefix.pch */ = {isa = PBXFileReference; path = "AXKit-Prefix.pch"; sourceTree = "<group>"; };
-		B3A2025F1492F13000077100 /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
-		B3A202601492F13000077100 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B3A202581492F13000077100 /* AXKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AXKit-Info.plist"; path = "../Sample App/AXKit-Info.plist"; sourceTree = "<group>"; };
+		B3A2025C1492F13000077100 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../Sample App/main.m"; sourceTree = "<group>"; };
+		B3A2025E1492F13000077100 /* AXKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AXKit-Prefix.pch"; path = "../Sample App/AXKit-Prefix.pch"; sourceTree = "<group>"; };
+		B3A2025F1492F13000077100 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../Sample App/AppDelegate.h"; sourceTree = "<group>"; };
+		B3A202601492F13000077100 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "../Sample App/AppDelegate.m"; sourceTree = "<group>"; };
+		B3A2026D1492F1AF00077100 /* AXImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageCache.h; path = AXKit/AXImageCache.h; sourceTree = "<group>"; };
+		B3A2026E1492F1AF00077100 /* AXImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXImageCache.m; path = AXKit/AXImageCache.m; sourceTree = "<group>"; };
+		B3A202701492F22E00077100 /* AXKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXKit.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,7 +47,8 @@
 		B3A202411492F13000077100 = {
 			isa = PBXGroup;
 			children = (
-				B3A202561492F13000077100 /* AXKit */,
+				B3A2026C1492F17E00077100 /* AXKit */,
+				B3A202561492F13000077100 /* Sample App */,
 				B3A2024F1492F13000077100 /* Frameworks */,
 				B3A2024D1492F13000077100 /* Products */,
 			);
@@ -69,13 +72,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B3A202561492F13000077100 /* AXKit */ = {
+		B3A202561492F13000077100 /* Sample App */ = {
 			isa = PBXGroup;
 			children = (
 				B3A2025F1492F13000077100 /* AppDelegate.h */,
 				B3A202601492F13000077100 /* AppDelegate.m */,
 				B3A202571492F13000077100 /* Supporting Files */,
 			);
+			name = "Sample App";
 			path = AXKit;
 			sourceTree = "<group>";
 		};
@@ -83,11 +87,20 @@
 			isa = PBXGroup;
 			children = (
 				B3A202581492F13000077100 /* AXKit-Info.plist */,
-				B3A202591492F13000077100 /* InfoPlist.strings */,
 				B3A2025C1492F13000077100 /* main.m */,
 				B3A2025E1492F13000077100 /* AXKit-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B3A2026C1492F17E00077100 /* AXKit */ = {
+			isa = PBXGroup;
+			children = (
+				B3A2026D1492F1AF00077100 /* AXImageCache.h */,
+				B3A2026E1492F1AF00077100 /* AXImageCache.m */,
+				B3A202701492F22E00077100 /* AXKit.h */,
+			);
+			name = AXKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,7 +154,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A2025B1492F13000077100 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -154,21 +166,11 @@
 			files = (
 				B3A2025D1492F13000077100 /* main.m in Sources */,
 				B3A202611492F13000077100 /* AppDelegate.m in Sources */,
+				B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		B3A202591492F13000077100 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B3A2025A1492F13000077100 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		B3A202621492F13000077100 /* Debug */ = {
@@ -220,8 +222,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AXKit/AXKit-Prefix.pch";
-				INFOPLIST_FILE = "AXKit/AXKit-Info.plist";
+				GCC_PREFIX_HEADER = "Sample App/AXKit-Prefix.pch";
+				INFOPLIST_FILE = "Sample App/AXKit-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -231,8 +233,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "AXKit/AXKit-Prefix.pch";
-				INFOPLIST_FILE = "AXKit/AXKit-Info.plist";
+				GCC_PREFIX_HEADER = "Sample App/AXKit-Prefix.pch";
+				INFOPLIST_FILE = "Sample App/AXKit-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -257,6 +259,7 @@
 				B3A202661492F13000077100 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
