@@ -13,6 +13,9 @@
 		B3A2025D1492F13000077100 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2025C1492F13000077100 /* main.m */; };
 		B3A202611492F13000077100 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A202601492F13000077100 /* AppDelegate.m */; };
 		B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2026E1492F1AF00077100 /* AXImageCache.m */; };
+		B3A202791492F59000077100 /* AXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A202781492F59000077100 /* AXImageFetchRequest.m */; };
+		B3A2028214930CEA00077100 /* AXConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2028114930CEA00077100 /* AXConstants.m */; };
+		B3A20284149321F000077100 /* SampleApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A20283149321F000077100 /* SampleApp.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,7 +30,12 @@
 		B3A202601492F13000077100 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "../Sample App/AppDelegate.m"; sourceTree = "<group>"; };
 		B3A2026D1492F1AF00077100 /* AXImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageCache.h; path = AXKit/AXImageCache.h; sourceTree = "<group>"; };
 		B3A2026E1492F1AF00077100 /* AXImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXImageCache.m; path = AXKit/AXImageCache.m; sourceTree = "<group>"; };
-		B3A202701492F22E00077100 /* AXKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AXKit.h; sourceTree = "<group>"; };
+		B3A202771492F59000077100 /* AXImageFetchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageFetchRequest.h; path = AXKit/AXImageFetchRequest.h; sourceTree = "<group>"; };
+		B3A202781492F59000077100 /* AXImageFetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXImageFetchRequest.m; path = AXKit/AXImageFetchRequest.m; sourceTree = "<group>"; };
+		B3A2027D1493040800077100 /* AXKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXKit.h; path = AXKit/AXKit.h; sourceTree = "<group>"; };
+		B3A2028014930CEA00077100 /* AXConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXConstants.h; path = AXKit/AXConstants.h; sourceTree = "<group>"; };
+		B3A2028114930CEA00077100 /* AXConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXConstants.m; path = AXKit/AXConstants.m; sourceTree = "<group>"; };
+		B3A20283149321F000077100 /* SampleApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SampleApp.storyboard; path = "Sample App/SampleApp.storyboard"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +85,7 @@
 			children = (
 				B3A2025F1492F13000077100 /* AppDelegate.h */,
 				B3A202601492F13000077100 /* AppDelegate.m */,
+				B3A20283149321F000077100 /* SampleApp.storyboard */,
 				B3A202571492F13000077100 /* Supporting Files */,
 			);
 			name = "Sample App";
@@ -98,7 +107,11 @@
 			children = (
 				B3A2026D1492F1AF00077100 /* AXImageCache.h */,
 				B3A2026E1492F1AF00077100 /* AXImageCache.m */,
-				B3A202701492F22E00077100 /* AXKit.h */,
+				B3A202771492F59000077100 /* AXImageFetchRequest.h */,
+				B3A202781492F59000077100 /* AXImageFetchRequest.m */,
+				B3A2027D1493040800077100 /* AXKit.h */,
+				B3A2028014930CEA00077100 /* AXConstants.h */,
+				B3A2028114930CEA00077100 /* AXConstants.m */,
 			);
 			name = AXKit;
 			sourceTree = "<group>";
@@ -154,6 +167,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3A20284149321F000077100 /* SampleApp.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +181,8 @@
 				B3A2025D1492F13000077100 /* main.m in Sources */,
 				B3A202611492F13000077100 /* AppDelegate.m in Sources */,
 				B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */,
+				B3A202791492F59000077100 /* AXImageFetchRequest.m in Sources */,
+				B3A2028214930CEA00077100 /* AXConstants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
