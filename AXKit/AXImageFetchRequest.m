@@ -17,34 +17,34 @@ NSInteger const kAXImageFetchRequestErrorMovingIntoPlace = 4;
 NSInteger const kAXImageFetchRequestErrorBadResposneCode = 5;
 NSInteger const kAXImageFetchRequestErrorURLConnectionFailed = 6;
 
-NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
+NSString * const kAXImageFetchRequestErrorImageURLKey = @"ImageURL";
 
 #define AXImageFetchRequestCacheDirectory() [NSTemporaryDirectory() stringByAppendingPathComponent:@"com.axiixc.AXKit.AXImageFetchRequest"]
 
 @interface AXImageFetchRequest ()
-- (void)callCompletionBlockForErrorCode:(NSInteger)errorCode;
-- (void)callCompletionBlockForErrorCode:(NSInteger)errorCode error:(NSError *)error;
+- (void)setStateDownloading;
+- (void)setStateCompleted;
+- (void)setStateErrorWithCode:(NSInteger)errorCode;
+- (void)setStateErrorWithCode:(NSInteger)errorCode error:(NSError *)error;
 @end
 
 @implementation AXImageFetchRequest {
     NSURL * _imageURL;
-    NSString * _finalCachePath;
     NSString * _tempCachePath;
     NSFileHandle * _tempFileHandle;
     
     NSURLConnection * _connection;
     long long _filesize;
-    
-    dispatch_once_t _hasCalledCompletionBlock;
 }
 
 #pragma mark - Property Synthesis
 
 @synthesize progressBlock = _progressBlock;
-@synthesize completionBlock = _completionBlock;
+@synthesize stateChangedBlock = _stateChangedBlock;
 @synthesize callbackQueue = _callbackQueue;
 @synthesize requestState = _requestState;
 @synthesize requestErrorCode = _requestErrorCode;
+@synthesize cachePath = _finalCachePath;
 
 #pragma mark - Class Utility Methods
 
@@ -64,7 +64,8 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
     }
     
     return [AXImageFetchRequestCacheDirectory() stringByAppendingPathComponent:
-            [[[url absoluteString]
+            [[[[url absoluteString]
+               stringByReplacingOccurrencesOfString:@"%" withString:@"_"]
               stringByReplacingOccurrencesOfString:@"/" withString:@"_"]
              stringByReplacingOccurrencesOfString:@":" withString:@"_"]];
 }
@@ -83,21 +84,24 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
 #pragma mark - Entrypoint Methods
 
 + (AXImageFetchRequest *)fetchImageAtURL:(NSURL *)url
-                         completionBlock:(AXImageFetchRequestCompletionBlock)completionBlock
+                       stateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock
 {
-    // This method is simply a forward
-    return [self fetchImageAtURL:url
-                   progressBlock:NULL
-                 completionBlock:completionBlock];
+    // Forward to general method
+    return [self fetchImageAtURL:url progressBlock:NULL stateChangedBlock:stateChangedBlock];
 }
 
 + (AXImageFetchRequest *)fetchImageAtURL:(NSURL *)url
                            progressBlock:(AXImageFetchRequestProgressBlock)progressBlock
-                         completionBlock:(AXImageFetchRequestCompletionBlock)completionBlock
+                       stateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock
 {
-    // Fast path, for images that already exist
+    // Fast path, for images that already exist. This does
+    // contain duplicated code, however it allows the class
+    // methods to return without the object-creation overhead.
     if ([self cacheContainsImageAtURL:url]) {
-        AX_DispatchAsyncOnQueue(dispatch_get_current_queue(), completionBlock, [self cachePathForImageAtURL:url], nil);
+        if (stateChangedBlock != NULL) {
+            stateChangedBlock(AXImageFetchRequestStateCompleted, [self cachePathForImageAtURL:url], nil);
+        }
+        
         return nil;
     }
     
@@ -106,15 +110,21 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
     
     if (request == nil) {
         NSError * error = [NSError errorWithDomain:kAXErrorDomain code:kAXImageFetchRequestErrorInvalidURL userInfo:nil];
-        AX_DispatchAsyncOnQueue(dispatch_get_current_queue(), completionBlock, nil, error);
+        stateChangedBlock(AXImageFetchRequestStateError, nil, error);
     }
     else {
         request.progressBlock = progressBlock;
-        request.completionBlock = completionBlock;
+        request.stateChangedBlock = stateChangedBlock;
         [request start];
     }
     
     return request;
+}
+
+- (id)init
+{
+    NSAssert(NO, @"Must initialize through -initWithURL:");
+    return nil;
 }
 
 - (id)initWithURL:(NSURL *)url
@@ -137,13 +147,26 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
 
 #pragma mark - Control Flow
 
-- (BOOL)start
+- (BOOL)existsInCache
 {
-    if (_requestState == AXImageFetchRequestStateError) {
-        [self callCompletionBlockForErrorCode:_requestErrorCode];
+    return [[self class] cacheContainsImageAtURL:_imageURL];
+}
+
+- (BOOL)quickLoad
+{
+    if (self.existsInCache && _requestState == AXImageFetchRequestStateNotStarted) {
+        [self setStateCompleted];
+        return YES;
     }
     
-    if (_requestState != AXImageFetchRequestStateNotStarted) {
+    return NO;
+}
+
+- (BOOL)start
+{
+    // If the request has already started, or the image exists
+    // just drop out now.
+    if (_requestState != AXImageFetchRequestStateNotStarted || [self quickLoad]) {
         return NO;
     }
     
@@ -154,7 +177,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
     int fileDescriptor = mkstemp(temporaryFileNameCString);
     
     if (fileDescriptor == -1) {
-        [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorTemporaryFile];
+        [self setStateErrorWithCode:kAXImageFetchRequestErrorTemporaryFile];
         return NO;
     }
     
@@ -162,6 +185,8 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
     _tempFileHandle = [[NSFileHandle alloc] initWithFileDescriptor:fileDescriptor closeOnDealloc:NO];
     
     free(temporaryFileNameCString);
+    
+    [self setStateDownloading];
     
     NSURLRequest * request = [NSURLRequest requestWithURL:_imageURL cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:60];
     _connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -174,13 +199,13 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"imageURL";
 - (void)cancel
 {
     // This can only do something if the request is running
-    if (_requestState != AXImageFetchRequestStateStarted) {
+    if (_requestState != AXImageFetchRequestStateDownloading) {
         return;
     }
     
     [_connection cancel], _connection = nil;
     
-    [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorCanceled];
+    [self setStateErrorWithCode:kAXImageFetchRequestErrorCanceled];
 }
 
 #pragma mark - Download Logic (NSURLConnectionDelegate)
@@ -191,11 +216,9 @@ didReceiveResponse:(NSURLResponse *)response
     if ([response respondsToSelector:@selector(statusCode)]) {
         NSInteger statusCode = [(NSHTTPURLResponse *)response statusCode];
         if (statusCode != 200) {
-            [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorBadResposneCode];
+            [self setStateErrorWithCode:kAXImageFetchRequestErrorBadResposneCode];
         }
     }
-    
-    NSLog(@"Response: %@", response);
     
     _filesize = [response expectedContentLength];
     AX_DispatchAsyncOnQueue(_callbackQueue, _progressBlock, 0, _filesize);
@@ -205,38 +228,44 @@ didReceiveResponse:(NSURLResponse *)response
     didReceiveData:(NSData *)data
 {
     [_tempFileHandle writeData:data];
+    
     long long downloaded = [_tempFileHandle offsetInFile];
     AX_DispatchAsyncOnQueue(_callbackQueue, _progressBlock, downloaded, _filesize);
 }
 
 #define CLOSE_TEMP_FILE() [_tempFileHandle closeFile], _tempFileHandle = nil
-#define TRY_MOVE() [[NSFileManager defaultManager] moveItemAtPath:_tempCachePath toPath:_finalCachePath error:&error]
+#define TRY_MOVE() error = nil; [[NSFileManager defaultManager] moveItemAtPath:_tempCachePath toPath:_finalCachePath error:&error]
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection
 {
-    NSLog(@"finish");
     CLOSE_TEMP_FILE();
     
-    NSError * error = nil;
+    NSError * error;
     TRY_MOVE();
+    
     if (error.code == NSFileNoSuchFileError) {
         if (![[NSFileManager defaultManager] fileExistsAtPath:AXImageFetchRequestCacheDirectory()])
         {
             NSError * makeDirError = nil;
             [[NSFileManager defaultManager] createDirectoryAtPath:AXImageFetchRequestCacheDirectory() withIntermediateDirectories:YES attributes:nil error:&makeDirError];
             if (!makeDirError) {
-                error = nil;
                 TRY_MOVE();
             }
         }
     }
+    else if (error.code == NSFileWriteFileExistsError) {
+        NSError * removeOldError = nil;
+        [[NSFileManager defaultManager] removeItemAtPath:_finalCachePath error:&removeOldError];
+        if (!removeOldError) {
+            TRY_MOVE();
+        }
+    }
           
     if (error) {
-        [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorMovingIntoPlace error:error];
+        [self setStateErrorWithCode:kAXImageFetchRequestErrorMovingIntoPlace error:error];
     }
     else {
-        _requestState = AXImageFetchRequestStateCompleted;
-        AX_DispatchAsyncOnQueue(_callbackQueue, _completionBlock, _finalCachePath, nil);
+        [self setStateCompleted];
     }
 }
 
@@ -245,7 +274,7 @@ didReceiveResponse:(NSURLResponse *)response
 {
     CLOSE_TEMP_FILE();
     
-    [self callCompletionBlockForErrorCode:kAXImageFetchRequestErrorURLConnectionFailed error:error];
+    [self setStateErrorWithCode:kAXImageFetchRequestErrorURLConnectionFailed error:error];
 }
 
 #pragma mark - Cleanup Methods
@@ -279,22 +308,50 @@ didReceiveResponse:(NSURLResponse *)response
                                    
 #pragma mark - Private helper methods
 
-- (void)callCompletionBlockForErrorCode:(NSInteger)errorCode
+#define CHANGE_STATE(state, path, error) do { \
+    _requestState = state; \
+    AX_DispatchAsyncOnQueue(_callbackQueue, _stateChangedBlock, _requestState, path, error); \
+} while(NO)
+
+- (void)setStateDownloading
+{
+    // A request can only initiate a download once per instance
+    if (_requestState == AXImageFetchRequestStateDownloading) {
+        return;
+    }
+    
+    CHANGE_STATE(AXImageFetchRequestStateDownloading, nil, nil);
+}
+
+- (void)setStateCompleted
+{
+    // A request can only complete once per instance
+    if (_requestState == AXImageFetchRequestStateCompleted) {
+        return;
+    }
+    
+    CHANGE_STATE(AXImageFetchRequestStateCompleted, _finalCachePath, nil);
+}
+
+- (void)setStateErrorWithCode:(NSInteger)errorCode
 {
     NSDictionary * userInfo = [NSDictionary dictionaryWithObject:_imageURL forKey:kAXImageFetchRequestErrorImageURLKey];
     NSError * error = [NSError errorWithDomain:kAXErrorDomain code:errorCode userInfo:userInfo];
     
-    [self callCompletionBlockForErrorCode:errorCode error:error];
+    [self setStateErrorWithCode:errorCode error:error];
 }
 
-- (void)callCompletionBlockForErrorCode:(NSInteger)errorCode error:(NSError *)error
+- (void)setStateErrorWithCode:(NSInteger)errorCode error:(NSError *)error
 {
+    // Only handle one error per instance
+    if (_requestState == AXImageFetchRequestStateError) {
+        return;
+    }
+    
     _requestState = AXImageFetchRequestStateError;
     _requestErrorCode = errorCode;
     
-    dispatch_once(&_hasCalledCompletionBlock, ^{
-        AX_DispatchAsyncOnQueue(_callbackQueue, _completionBlock, nil, error);
-    });
+    AX_DispatchSyncOnQueue(_callbackQueue, _stateChangedBlock, _requestState, nil, error);
 }
 
 @end

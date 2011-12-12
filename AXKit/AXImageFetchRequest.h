@@ -27,8 +27,10 @@
  * not technically necessary to supply a completion block, there
  * is no other way to tell once a download has finished.
  *
- * The progress block may be called two or more times during the
- * download of the resource. Once upon start with zero completion
+ * The progress block may be called zero, two, or more times
+ * during the download of the resource. If a fast-path is
+ * followed, it will not be called. If a download is triggered it
+ * will be called once upon start with zero completion
  * and once when the download finishes with full completion. 
  * Completion is given as two values, the currently download size
  * and the total download size.
@@ -72,20 +74,20 @@
  * better not to, since it will just have to be remade.
  */
 
-typedef void (^AXImageFetchRequestProgressBlock)(long long downloaded, long long filesize);
-
-typedef void (^AXImageFetchRequestCompletionBlock)(NSString * imagePath, NSError * error);
-
 typedef enum {
     /* The request is waiting to be started */
-    AXImageFetchRequestStateNotStarted,
+    AXImageFetchRequestStateNotStarted = 0,
     /* The request is currently downloading */
-    AXImageFetchRequestStateStarted,
+    AXImageFetchRequestStateDownloading,
     /* The request has completed sucessfully */
     AXImageFetchRequestStateCompleted,
     /* The request was stopped before completion by an error */
     AXImageFetchRequestStateError,
 } AXImageFetchRequestState;
+
+typedef void (^AXImageFetchRequestProgressBlock)(long long downloaded, long long filesize);
+
+typedef void (^AXImageFetchRequestStateChangedBlock)(AXImageFetchRequestState state, NSString * imagePath, NSError * error);
 
 /* No error occured */
 extern NSInteger const kAXImageFetchRequestErrorNone;
@@ -141,11 +143,18 @@ extern NSString * const kAXImageFetchRequestErrorImageURLKey;
 
 /* These method are defined above */
 + (AXImageFetchRequest *)fetchImageAtURL:(NSURL *)url
-                         completionBlock:(AXImageFetchRequestCompletionBlock)completionBlock;
+                       stateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock;
 + (AXImageFetchRequest *)fetchImageAtURL:(NSURL *)url
                            progressBlock:(AXImageFetchRequestProgressBlock)progressBlock
-                         completionBlock:(AXImageFetchRequestCompletionBlock)completionBlock;
+                       stateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock;
+
 - (id)initWithURL:(NSURL *)url;
+
+/* Checks if the requested image already exists in the cache,
+ * calling the appropriate blocks if it does. This method is
+ * implicitly called by start.
+ */
+- (BOOL)quickLoad;
 
 /* Begin the download of this image. Once this method has been
  * called, the request may not be restarted. The return value
@@ -161,7 +170,7 @@ extern NSString * const kAXImageFetchRequestErrorImageURLKey;
 
 /* These properties are described above */
 @property (nonatomic, copy) AXImageFetchRequestProgressBlock progressBlock;
-@property (nonatomic, copy) AXImageFetchRequestCompletionBlock completionBlock;
+@property (nonatomic, copy) AXImageFetchRequestStateChangedBlock stateChangedBlock;
 @property (nonatomic) dispatch_queue_t callbackQueue;
 
 /* The current state of the request */
@@ -171,6 +180,9 @@ extern NSString * const kAXImageFetchRequestErrorImageURLKey;
  * is AXImageFetchRequestStateError.
  */
 @property (nonatomic, readonly) NSInteger requestErrorCode;
+
+@property (nonatomic, strong, readonly) NSString * cachePath;
+@property (nonatomic, readonly) BOOL existsInCache;
 
 /* These methods are described above */
 + (BOOL)removeCachedImageAtURL:(NSURL *)url;
