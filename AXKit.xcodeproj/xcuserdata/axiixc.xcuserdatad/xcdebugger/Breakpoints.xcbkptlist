@@ -9,11 +9,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345198558.960201"
+         timestampString = "345359470.564376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "169"
-         endingLineNumber = "169"
+         startingLineNumber = "187"
+         endingLineNumber = "187"
          landmarkName = "-start"
          landmarkType = "5">
       </FileBreakpoint>
@@ -23,11 +23,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345198558.960201"
+         timestampString = "345359470.564376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "188"
-         endingLineNumber = "188"
+         startingLineNumber = "222"
+         endingLineNumber = "222"
          landmarkName = "-connection:didReceiveResponse:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -37,11 +37,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345198558.960201"
+         timestampString = "345359470.564376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "204"
-         endingLineNumber = "204"
+         startingLineNumber = "234"
+         endingLineNumber = "234"
          landmarkName = "-connection:didReceiveData:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -51,11 +51,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345198558.960201"
+         timestampString = "345359470.564376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "215"
-         endingLineNumber = "215"
+         startingLineNumber = "267"
+         endingLineNumber = "267"
          landmarkName = "-connectionDidFinishLoading:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -65,13 +65,13 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345199389.208112"
+         timestampString = "345359470.564376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "242"
-         endingLineNumber = "242"
-         landmarkName = "@implementation AXImageFetchRequest"
-         landmarkType = "3">
+         startingLineNumber = "305"
+         endingLineNumber = "305"
+         landmarkName = "+removeAllCachedImages"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "No"
@@ -79,39 +79,53 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345199389.208112"
+         timestampString = "345359470.564376"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "281"
-         endingLineNumber = "281"
-         landmarkName = "@implementation AXImageFetchRequest"
-         landmarkType = "3">
+         startingLineNumber = "338"
+         endingLineNumber = "338"
+         landmarkName = "-setStateErrorWithCode:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "AXKit/AXImageFetchRequest.m"
-         timestampString = "345199389.208112"
+         timestampString = "345359527.732011"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "289"
-         endingLineNumber = "289"
-         landmarkName = "@implementation AXImageFetchRequest"
-         landmarkType = "3">
+         startingLineNumber = "244"
+         endingLineNumber = "244"
+         landmarkName = "-connectionDidFinishLoading:"
+         landmarkType = "5">
       </FileBreakpoint>
       <FileBreakpoint
-         shouldBeEnabled = "No"
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "AXKit/AXImageFetchRequest.m"
+         timestampString = "345359576.053865"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "326"
+         endingLineNumber = "326"
+         landmarkName = "-setStateCompleted"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Sample App/SAXImageFetchRequest.m"
-         timestampString = "345200333.204349"
+         timestampString = "345359614.616585"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "64"
-         endingLineNumber = "64"
+         startingLineNumber = "66"
+         endingLineNumber = "66"
          landmarkName = "-loadImage"
          landmarkType = "5">
       </FileBreakpoint>

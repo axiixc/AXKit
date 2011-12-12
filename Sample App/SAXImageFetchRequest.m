@@ -60,25 +60,34 @@
     pendingFetch = [AXImageFetchRequest
                     fetchImageAtURL:imageURL
                     progressBlock:^(long long downloaded, long long filesize) {
-                        NSLog(@"%lld %lld", downloaded, filesize);
                         imageProgressView.progress = (float)((double)downloaded / (double)filesize);
-                        imageStateLabel.text = @"Downloading";
                     } 
-                    completionBlock:^(NSString *imagePath, NSError *error) {
-                        if (error || imagePath == nil) {
-                            [[[UIAlertView alloc]
-                              initWithTitle:@"An Error Occured"
-                              message:[error description]
-                              delegate:nil
-                              cancelButtonTitle:@"OK"
-                              otherButtonTitles:nil]
-                             show];
-                            imageView.image = nil;
-                            imageStateLabel.text = @"Error";
-                        }
-                        else {
-                            imageView.image = [UIImage imageWithContentsOfFile:imagePath];
-                            imageStateLabel.text = @"Downloaded";
+                    stateChangedBlock:^(AXImageFetchRequestState state, NSString *imagePath, NSError *error) {
+                        switch (state) {
+                            case AXImageFetchRequestStateDownloading:
+                                imageView.image = nil;
+                                imageStateLabel.text = @"Downloading";
+                                imageProgressView.progress = 0;
+                                break;
+                            case AXImageFetchRequestStateCompleted:
+                                imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+                                imageStateLabel.text = @"Complete";
+                                imageProgressView.progress = 1;
+                                break;
+                            case AXImageFetchRequestStateError:
+                                imageView.image = nil;
+                                imageStateLabel.text = @"Error";
+                                [[[UIAlertView alloc]
+                                  initWithTitle:@"An Error Occured"
+                                  message:[error description]
+                                  delegate:nil
+                                  cancelButtonTitle:@"OK"
+                                  otherButtonTitles:nil]
+                                 show];
+                                break;
+                                
+                            default:
+                                break;
                         }
                     }];
 }

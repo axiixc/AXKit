@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B3106F121495C74000DAD281 /* AXImageFetchRequestStack.m in Sources */ = {isa = PBXBuildFile; fileRef = B3106F111495C73F00DAD281 /* AXImageFetchRequestStack.m */; };
+		B39C3F0B1493DECD00E59557 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B39C3F0A1493DECD00E59557 /* main.m */; };
+		B39C3F101493E10900E59557 /* SAXImageCacheData.plist in Resources */ = {isa = PBXBuildFile; fileRef = B39C3F0F1493E10900E59557 /* SAXImageCacheData.plist */; };
 		B3A202511492F13000077100 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A202501492F13000077100 /* UIKit.framework */; };
 		B3A202531492F13000077100 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A202521492F13000077100 /* Foundation.framework */; };
 		B3A202551492F13000077100 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3A202541492F13000077100 /* CoreGraphics.framework */; };
-		B3A2025D1492F13000077100 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2025C1492F13000077100 /* main.m */; };
 		B3A202611492F13000077100 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A202601492F13000077100 /* AppDelegate.m */; };
-		B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2026E1492F1AF00077100 /* AXImageCache.m */; };
 		B3A202791492F59000077100 /* AXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A202781492F59000077100 /* AXImageFetchRequest.m */; };
 		B3A2028214930CEA00077100 /* AXConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2028114930CEA00077100 /* AXConstants.m */; };
 		B3A20284149321F000077100 /* SampleApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A20283149321F000077100 /* SampleApp.storyboard */; };
@@ -20,13 +21,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B3106F101495C73F00DAD281 /* AXImageFetchRequestStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageFetchRequestStack.h; path = AXKit/AXImageFetchRequestStack.h; sourceTree = "<group>"; };
+		B3106F111495C73F00DAD281 /* AXImageFetchRequestStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXImageFetchRequestStack.m; path = AXKit/AXImageFetchRequestStack.m; sourceTree = "<group>"; };
+		B39C3F021493DE4300E59557 /* AXKit-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "AXKit-Info.plist"; path = "Sample App/AXKit-Info.plist"; sourceTree = SOURCE_ROOT; };
+		B39C3F031493DE4300E59557 /* AXKit-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "AXKit-Prefix.pch"; path = "Sample App/AXKit-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		B39C3F0A1493DECD00E59557 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "Sample App/main.m"; sourceTree = SOURCE_ROOT; };
+		B39C3F0C1493DEE800E59557 /* SAXImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAXImageCache.h; path = "Sample App/SAXImageCache.h"; sourceTree = SOURCE_ROOT; };
+		B39C3F0D1493DEE800E59557 /* SAXImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAXImageCache.m; path = "Sample App/SAXImageCache.m"; sourceTree = SOURCE_ROOT; };
+		B39C3F0F1493E10900E59557 /* SAXImageCacheData.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SAXImageCacheData.plist; sourceTree = "<group>"; };
 		B3A2024C1492F13000077100 /* AXKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AXKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3A202501492F13000077100 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		B3A202521492F13000077100 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3A202541492F13000077100 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		B3A202581492F13000077100 /* AXKit-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AXKit-Info.plist"; path = "../Sample App/AXKit-Info.plist"; sourceTree = "<group>"; };
-		B3A2025C1492F13000077100 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = main.m; path = "../Sample App/main.m"; sourceTree = "<group>"; };
-		B3A2025E1492F13000077100 /* AXKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "AXKit-Prefix.pch"; path = "../Sample App/AXKit-Prefix.pch"; sourceTree = "<group>"; };
 		B3A2025F1492F13000077100 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = "../Sample App/AppDelegate.h"; sourceTree = "<group>"; };
 		B3A202601492F13000077100 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = "../Sample App/AppDelegate.m"; sourceTree = "<group>"; };
 		B3A2026D1492F1AF00077100 /* AXImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageCache.h; path = AXKit/AXImageCache.h; sourceTree = "<group>"; };
@@ -55,11 +61,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B39C3F001493DE2400E59557 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B39C3F021493DE4300E59557 /* AXKit-Info.plist */,
+				B39C3F031493DE4300E59557 /* AXKit-Prefix.pch */,
+				B39C3F0A1493DECD00E59557 /* main.m */,
+			);
+			name = "Supporting Files";
+			path = AXKit;
+			sourceTree = "<group>";
+		};
 		B3A202411492F13000077100 = {
 			isa = PBXGroup;
 			children = (
 				B3A2026C1492F17E00077100 /* AXKit */,
 				B3A202561492F13000077100 /* Sample App */,
+				B39C3F001493DE2400E59557 /* Supporting Files */,
 				B3A2024F1492F13000077100 /* Frameworks */,
 				B3A2024D1492F13000077100 /* Products */,
 			);
@@ -91,20 +109,12 @@
 				B3A20283149321F000077100 /* SampleApp.storyboard */,
 				B3A20285149326D300077100 /* SAXImageFetchRequest.h */,
 				B3A20286149326D300077100 /* SAXImageFetchRequest.m */,
-				B3A202571492F13000077100 /* Supporting Files */,
+				B39C3F0C1493DEE800E59557 /* SAXImageCache.h */,
+				B39C3F0D1493DEE800E59557 /* SAXImageCache.m */,
+				B39C3F0F1493E10900E59557 /* SAXImageCacheData.plist */,
 			);
 			name = "Sample App";
 			path = AXKit;
-			sourceTree = "<group>";
-		};
-		B3A202571492F13000077100 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				B3A202581492F13000077100 /* AXKit-Info.plist */,
-				B3A2025C1492F13000077100 /* main.m */,
-				B3A2025E1492F13000077100 /* AXKit-Prefix.pch */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		B3A2026C1492F17E00077100 /* AXKit */ = {
@@ -117,6 +127,8 @@
 				B3A2027D1493040800077100 /* AXKit.h */,
 				B3A2028014930CEA00077100 /* AXConstants.h */,
 				B3A2028114930CEA00077100 /* AXConstants.m */,
+				B3106F101495C73F00DAD281 /* AXImageFetchRequestStack.h */,
+				B3106F111495C73F00DAD281 /* AXImageFetchRequestStack.m */,
 			);
 			name = AXKit;
 			sourceTree = "<group>";
@@ -173,6 +185,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B3A20284149321F000077100 /* SampleApp.storyboard in Resources */,
+				B39C3F101493E10900E59557 /* SAXImageCacheData.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,12 +196,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3A2025D1492F13000077100 /* main.m in Sources */,
 				B3A202611492F13000077100 /* AppDelegate.m in Sources */,
-				B3A2026F1492F1AF00077100 /* AXImageCache.m in Sources */,
 				B3A202791492F59000077100 /* AXImageFetchRequest.m in Sources */,
 				B3A2028214930CEA00077100 /* AXConstants.m in Sources */,
 				B3A20287149326D300077100 /* SAXImageFetchRequest.m in Sources */,
+				B39C3F0B1493DECD00E59557 /* main.m in Sources */,
+				B3106F121495C74000DAD281 /* AXImageFetchRequestStack.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
