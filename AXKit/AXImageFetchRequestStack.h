@@ -11,6 +11,8 @@
 @interface AXImageFetchRequestStack : NSObject
 
 - (id)initWithStackSize:(NSUInteger)stackSize;
+- (id)initWithStackSize:(NSUInteger)stackSize
+ maxConcurrentDownloads:(NSUInteger)maxConcurrentDownloads;
 
 - (void)fetchImageAtURL:(NSURL *)url
       stateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock;
@@ -20,7 +22,8 @@
       stateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock;
 
 @property (nonatomic) dispatch_queue_t callbackQueue;
-@property (nonatomic, readonly) NSUInteger pendingDownloads;
+@property (nonatomic, readonly) NSUInteger pendingDownloadsCount;
 @property (nonatomic) NSUInteger stackSize;
+@property (nonatomic) NSUInteger maxConcurrentDownloads;
 
 @end

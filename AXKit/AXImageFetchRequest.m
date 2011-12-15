@@ -123,7 +123,7 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"ImageURL";
 
 - (id)init
 {
-    NSAssert(NO, @"Must initialize through -initWithURL:");
+    NSAssert(NO, @"Must initialize with -initWithURL:");
     return nil;
 }
 

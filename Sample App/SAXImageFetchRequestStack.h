@@ -6,6 +6,6 @@
 //  Copyright (c) 2011 axiixc.com. All rights reserved.
 //
 
-@interface SAXImageCache : UITableViewController
+@interface SAXImageFetchRequestStack : UITableViewController
 
 @end

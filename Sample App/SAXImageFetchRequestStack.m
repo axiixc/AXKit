@@ -6,12 +6,12 @@
 //  Copyright (c) 2011 axiixc.com. All rights reserved.
 //
 
-#import "SAXImageCache.h"
-#import "AXImageCache.h"
+#import "SAXImageFetchRequestStack.h"
+#import "AXImageFetchRequestStack.h"
 #import "AXImageFetchRequest.h"
 
-@implementation SAXImageCache {
-    AXImageCache * imageCache;
+@implementation SAXImageFetchRequestStack {
+    AXImageFetchRequestStack * imageRequestStack;
     NSArray * imageDataSource;
 }
 
@@ -26,7 +26,7 @@
 {
     [super viewDidLoad];
     
-    imageCache = [[AXImageCache alloc] initWithDownloadStackSize:10];
+    imageRequestStack = [[AXImageFetchRequestStack alloc] initWithStackSize:6 maxConcurrentDownloads:6];
     
     NSString * cacheData = [[NSBundle mainBundle] pathForResource:@"SAXImageCacheData" ofType:@"plist"];
     NSMutableArray * tempImageDataSource = [NSMutableArray new];
@@ -59,16 +59,21 @@
 {
     UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"basicCell"];
     cell.textLabel.text = [[imageDataSource objectAtIndex:indexPath.row] absoluteString];
+    cell.imageView.image = nil;
     
-    [imageCache
+    [imageRequestStack
      fetchImageAtURL:[imageDataSource objectAtIndex:indexPath.row]
-     startingBlock:^(NSString *imagePath) {
-         cell.imageView.image = nil;
-     }
-     progressBlock:NULL
-     completionBlock:^(NSString *imagePath, NSError *error) {
-         
+     stateChangedBlock:^(AXImageFetchRequestState state, NSString *imagePath, NSError *error) {
+         UITableViewCell * cell = [tableView cellForRowAtIndexPath:indexPath];
+         if (cell != nil) {
+             if (state == AXImageFetchRequestStateCompleted)
+                 cell.imageView.image = [UIImage imageWithContentsOfFile:imagePath];
+             else
+                 cell.imageView.image = nil;
+             [cell setNeedsLayout];
+         }
      }];
+    
     return cell;
 }
 

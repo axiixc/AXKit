@@ -57,8 +57,9 @@
     }
     
     NSURL * imageURL = [NSURL URLWithString:urlField.text];
-    pendingFetch = [AXImageFetchRequest
+    [AXImageFetchRequest
                     fetchImageAtURL:imageURL
+                    // This block may not be called if the image is already in cache
                     progressBlock:^(long long downloaded, long long filesize) {
                         imageProgressView.progress = (float)((double)downloaded / (double)filesize);
                     } 
@@ -67,12 +68,12 @@
                             case AXImageFetchRequestStateDownloading:
                                 imageView.image = nil;
                                 imageStateLabel.text = @"Downloading";
-                                imageProgressView.progress = 0;
+                                imageProgressView.progress = 0; // Explicitly set any progress bars
                                 break;
                             case AXImageFetchRequestStateCompleted:
                                 imageView.image = [UIImage imageWithContentsOfFile:imagePath];
                                 imageStateLabel.text = @"Complete";
-                                imageProgressView.progress = 1;
+                                imageProgressView.progress = 1; // Explicitly set any progress bars
                                 break;
                             case AXImageFetchRequestStateError:
                                 imageView.image = nil;

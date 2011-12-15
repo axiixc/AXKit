@@ -115,6 +115,8 @@ extern NSInteger const kAXImageFetchRequestErrorURLConnectionFailed;
  */
 extern NSString * const kAXImageFetchRequestErrorImageURLKey;
 
+@class AXImageFetchRequestStack;
+
 @interface AXImageFetchRequest : NSObject
 
 /* This method returns YES if a image at the specified URL has
