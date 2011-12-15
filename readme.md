@@ -1,0 +1,3 @@
+AXKit is (going to be) a set of useful code that I've used in my projects and want to open source. Its also an exercise for me to take some of my thrown-together code and make it more presentable, and rethink a lot of the API I use.
+
+All classes will get an appropriate demo, probably similar to the use I originally developed the class for, but hopefully general enough to help understand the code. I also plan on adding good documentation to all classes, but that may take a bit more time than I'd like.
