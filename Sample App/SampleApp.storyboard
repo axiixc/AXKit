@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.0" toolsVersion="1938" systemVersion="11C74" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="aVG-Tu-soT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="1.1" toolsVersion="2177" systemVersion="11D50b" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="aVG-Tu-soT">
     <dependencies>
         <development defaultVersion="4200" identifier="xcode"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="933"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1173"/>
     </dependencies>
     <scenes>
+        <!--Table View Controller - Classes-->
         <scene sceneID="mOb-Kd-Vgo">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tMM-eh-j3k" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -23,10 +24,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="AXImageFetchRequest" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="smo-rd-apj">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="AXImageFetchRequest" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="smo-rd-apj">
                                                     <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -45,10 +46,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="AXImageFetchRequestStack" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CB6-Jd-ybU">
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="AXImageFetchRequestStack" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="CB6-Jd-ybU">
                                                     <rect key="frame" x="10" y="0.0" width="280" height="43"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 </label>
@@ -58,6 +59,28 @@
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <segue destination="cYx-yF-ehC" kind="push" id="voH-Q7-6Sb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="basicCell" textLabel="Tvv-fo-y2c" style="IBUITableViewCellStyleDefault" id="3he-QR-xpp">
+                                        <rect key="frame" x="0.0" y="88" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="UIWebView+AXExtendedAppearance" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" id="Tvv-fo-y2c">
+                                                    <rect key="frame" x="10" y="0.0" width="354" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="MOd-ix-vmn" kind="push" id="UmP-Tq-KL6"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -73,6 +96,7 @@
             </objects>
             <point key="canvasLocation" x="41" y="188"/>
         </scene>
+        <!--Image Fetch Request-->
         <scene sceneID="we8-WQ-pMe">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5c8-fz-A6B" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -147,6 +171,34 @@
             </objects>
             <point key="canvasLocation" x="582" y="-82"/>
         </scene>
+        <!--Web View - UIWebView+AXExtendedAppearance-->
+        <scene sceneID="zHE-RG-1B5">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fzK-pk-1Zz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController id="MOd-ix-vmn" customClass="SUIWebView" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fhd-i6-QA7">
+                        <rect key="frame" x="0.0" y="64" width="320" height="416"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="LDA-tb-t1O">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="UIWebView+AXExtendedAppearance" id="Bqw-ZE-6Ms"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="webView" destination="LDA-tb-t1O" id="mVm-mJ-Wdf"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="187" y="855"/>
+        </scene>
+        <!--Image Fetch Request Stack - AXImageCache-->
         <scene sceneID="wU2-Pm-zle">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ouG-fc-DA4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -163,7 +215,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qiN-wZ-bM1">
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" id="qiN-wZ-bM1">
                                             <rect key="frame" x="10" y="0.0" width="300" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <string key="text">Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title Title </string>
@@ -186,6 +238,7 @@
             </objects>
             <point key="canvasLocation" x="582" y="494"/>
         </scene>
+        <!--Navigation Controller-->
         <scene sceneID="fFj-Ge-2vL">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GsA-fA-vXx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -201,6 +254,29 @@
             <point key="canvasLocation" x="-364" y="188"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="SAXImageFetchRequest" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SAXImageFetchRequest.h"/>
+            <relationships>
+                <relationship kind="action" name="loadImage"/>
+                <relationship kind="action" name="typedIntoURLField:" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="goItem" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="imageProgressView" candidateClass="UIProgressView"/>
+                <relationship kind="outlet" name="imageStateLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="urlField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="SAXImageFetchRequestStack" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SAXImageFetchRequestStack.h"/>
+        </class>
+        <class className="SUIWebView" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SUIWebView.h"/>
+            <relationships>
+                <relationship kind="outlet" name="webView" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

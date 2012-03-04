@@ -10,7 +10,7 @@
 
 @implementation UIWebView (AXExtendedAppearance)
 
-- (void)createCustomAppearance:(AXWebViewAppearanceOptions)options
+- (void)makeCustomAppearance_ax:(AXWebViewAppearanceOptions)options
 {
     if (options & AXWebViewAppearanceRemoveShadows)
     {

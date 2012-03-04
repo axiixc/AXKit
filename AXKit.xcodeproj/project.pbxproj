@@ -20,6 +20,7 @@
 		B3A20284149321F000077100 /* SampleApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A20283149321F000077100 /* SampleApp.storyboard */; };
 		B3A20287149326D300077100 /* SAXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A20286149326D300077100 /* SAXImageFetchRequest.m */; };
 		B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */; };
+		B3AC184815042127008F8288 /* SUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC184715042127008F8288 /* SUIWebView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,8 @@
 		B3A20286149326D300077100 /* SAXImageFetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAXImageFetchRequest.m; path = "Sample App/SAXImageFetchRequest.m"; sourceTree = SOURCE_ROOT; };
 		B3AC183E15041F57008F8288 /* UIWebView+AXExtendedAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AXExtendedAppearance.h"; path = "AXKit/UIWebView+AXExtendedAppearance.h"; sourceTree = "<group>"; };
 		B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AXExtendedAppearance.m"; path = "AXKit/UIWebView+AXExtendedAppearance.m"; sourceTree = "<group>"; };
+		B3AC184615042127008F8288 /* SUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUIWebView.h; path = "Sample App/SUIWebView.h"; sourceTree = SOURCE_ROOT; };
+		B3AC184715042127008F8288 /* SUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUIWebView.m; path = "Sample App/SUIWebView.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +116,8 @@
 				B3A20286149326D300077100 /* SAXImageFetchRequest.m */,
 				B39C3F0C1493DEE800E59557 /* SAXImageFetchRequestStack.h */,
 				B39C3F0D1493DEE800E59557 /* SAXImageFetchRequestStack.m */,
+				B3AC184615042127008F8288 /* SUIWebView.h */,
+				B3AC184715042127008F8288 /* SUIWebView.m */,
 				B39C3F0F1493E10900E59557 /* SAXImageCacheData.plist */,
 			);
 			name = "Sample App";
@@ -222,6 +227,7 @@
 				B3106F121495C74000DAD281 /* AXImageFetchRequestStack.m in Sources */,
 				B37D0E81149A9A4E00E3599C /* SAXImageFetchRequestStack.m in Sources */,
 				B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */,
+				B3AC184815042127008F8288 /* SUIWebView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

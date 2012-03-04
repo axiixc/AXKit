@@ -18,6 +18,6 @@ typedef enum {
 
 @interface UIWebView (AXExtendedAppearance)
 
-- (void)createCustomAppearance:(AXWebViewAppearanceOptions)options;
+- (void)makeCustomAppearance_ax:(AXWebViewAppearanceOptions)options;
 
 @end
