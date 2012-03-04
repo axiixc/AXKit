@@ -14,17 +14,21 @@
 {
     if (options & AXWebViewAppearanceRemoveShadows)
     {
-        
+        id scroller = [self.subviews objectAtIndex:0];
+        for (UIView * subView in [scroller subviews])
+            if ([[[subView class] description] isEqualToString:@"UIImageView"])
+                subView.hidden = YES;
     }
     
     if (options & AXWebViewAppearanceTransparent)
     {
-        
+        self.opaque = NO;
+        self.backgroundColor = [UIColor clearColor];
     }
     
     if (options & AXWebViewAppearanceDiscardKeyboardAccessoryView)
     {
-        
+        // TODO: not yet implemented
     }
 }
 
