@@ -122,12 +122,20 @@
 				B3A2027D1493040800077100 /* AXKit.h */,
 				B3A2028014930CEA00077100 /* AXConstants.h */,
 				B3A2028114930CEA00077100 /* AXConstants.m */,
+				B3AC183B15041ED4008F8288 /* Web Images */,
+			);
+			name = AXKit;
+			sourceTree = "<group>";
+		};
+		B3AC183B15041ED4008F8288 /* Web Images */ = {
+			isa = PBXGroup;
+			children = (
 				B3A202771492F59000077100 /* AXImageFetchRequest.h */,
 				B3A202781492F59000077100 /* AXImageFetchRequest.m */,
 				B3106F101495C73F00DAD281 /* AXImageFetchRequestStack.h */,
 				B3106F111495C73F00DAD281 /* AXImageFetchRequestStack.m */,
 			);
-			name = AXKit;
+			name = "Web Images";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
