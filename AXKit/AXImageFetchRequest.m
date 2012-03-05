@@ -21,6 +21,11 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"ImageURL";
 
 #define AXImageFetchRequestCacheDirectory() [NSTemporaryDirectory() stringByAppendingPathComponent:@"com.axiixc.AXKit.AXImageFetchRequest"]
 
+#define CHANGE_STATE(state, error) do { \
+_requestState = state; \
+AX_DispatchAsyncOnQueue(_callbackQueue, _stateChangedBlock, state, _finalCachePath, error); \
+} while(NO)
+
 @interface AXImageFetchRequest ()
 - (void)setStateDownloading;
 - (void)setStateCompleted;
@@ -143,6 +148,15 @@ NSString * const kAXImageFetchRequestErrorImageURLKey = @"ImageURL";
     }
     
     return self;
+}
+
+#pragma mark - Callback Control Flow
+
+- (void)setStateChangedBlock:(AXImageFetchRequestStateChangedBlock)stateChangedBlock
+{
+    _stateChangedBlock = [stateChangedBlock copy];
+    
+    AX_DispatchSyncOnQueue(_callbackQueue, _stateChangedBlock, _requestState, _finalCachePath, nil);
 }
 
 #pragma mark - Control Flow
@@ -308,11 +322,6 @@ didReceiveResponse:(NSURLResponse *)response
                                    
 #pragma mark - Private helper methods
 
-#define CHANGE_STATE(state, path, error) do { \
-    _requestState = state; \
-    AX_DispatchAsyncOnQueue(_callbackQueue, _stateChangedBlock, _requestState, path, error); \
-} while(NO)
-
 - (void)setStateDownloading
 {
     // A request can only initiate a download once per instance
@@ -320,7 +329,7 @@ didReceiveResponse:(NSURLResponse *)response
         return;
     }
     
-    CHANGE_STATE(AXImageFetchRequestStateDownloading, nil, nil);
+    CHANGE_STATE(AXImageFetchRequestStateDownloading, nil);
 }
 
 - (void)setStateCompleted
@@ -330,7 +339,7 @@ didReceiveResponse:(NSURLResponse *)response
         return;
     }
     
-    CHANGE_STATE(AXImageFetchRequestStateCompleted, _finalCachePath, nil);
+    CHANGE_STATE(AXImageFetchRequestStateCompleted, nil);
 }
 
 - (void)setStateErrorWithCode:(NSInteger)errorCode

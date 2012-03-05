@@ -78,11 +78,11 @@ typedef enum {
     /* The request is waiting to be started */
     AXImageFetchRequestStateNotStarted = 0,
     /* The request is currently downloading */
-    AXImageFetchRequestStateDownloading,
+    AXImageFetchRequestStateDownloading = 1,
     /* The request has completed sucessfully */
-    AXImageFetchRequestStateCompleted,
+    AXImageFetchRequestStateCompleted = 2,
     /* The request was stopped before completion by an error */
-    AXImageFetchRequestStateError,
+    AXImageFetchRequestStateError = 3,
 } AXImageFetchRequestState;
 
 typedef void (^AXImageFetchRequestProgressBlock)(long long downloaded, long long filesize);
