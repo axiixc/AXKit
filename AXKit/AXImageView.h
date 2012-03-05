@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AXImageFetchRequestStack.h"
+
+@class AXImageFetchRequestStack;
 
 typedef void(^AXRemoteImagesCallbackBlock)(NSError * error);
 

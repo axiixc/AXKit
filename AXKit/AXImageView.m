@@ -8,6 +8,7 @@
 
 #import "AXImageView.h"
 #import "AXConstants.h"
+#import "AXImageFetchRequestStack.h"
 #import <objc/runtime.h>
 
 @interface AXImageView ()
@@ -27,7 +28,7 @@ static AXImageFetchRequestStack * defaultFetchRequestStack = nil;
 {
     if (defaultFetchRequestStack == nil)
         defaultFetchRequestStack = [[AXImageFetchRequestStack alloc] 
-                                    initWithStackSize:0
+                                    initWithStackSize:kAXImageFetchRequestStackSizeUnlimited
                                     maxConcurrentDownloads:2];
     
     return defaultFetchRequestStack;
@@ -149,6 +150,10 @@ static AXImageFetchRequestStack * defaultFetchRequestStack = nil;
             _placeholderView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
             [self addSubview:_placeholderView];
         }
+    }
+    else if (active)
+    {
+        [super setImage:nil];
     }
     else if (!active && _placeholderImage)
     {
