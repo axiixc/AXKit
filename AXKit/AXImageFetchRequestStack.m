@@ -103,7 +103,7 @@
 
 #pragma mark - Download Stack Operations
 
-- (NSUInteger)pendingDownloads
+- (NSUInteger)pendingDownloadsCount
 {
     return [_downloadStack count];
 }
