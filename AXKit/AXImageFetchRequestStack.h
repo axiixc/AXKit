@@ -8,6 +8,8 @@
 
 #import "AXImageFetchRequest.h"
 
+#define kAXImageFetchRequestStackSizeUnlimited (0)
+
 @interface AXImageFetchRequestStack : NSObject
 
 - (id)initWithStackSize:(NSUInteger)stackSize;

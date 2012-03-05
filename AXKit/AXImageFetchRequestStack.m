@@ -117,7 +117,7 @@
 - (void)pokeDownloadStack
 {
     // First, and always, trim the stack
-    while ([_downloadStack count] > _stackSize + 1) {
+    while (_stackSize > 0 && [_downloadStack count] > _stackSize + 1) {
         [_downloadStack removeObjectAtIndex:0];
     }
     
