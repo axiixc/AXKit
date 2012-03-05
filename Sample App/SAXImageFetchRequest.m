@@ -86,8 +86,7 @@
                                   otherButtonTitles:nil]
                                  show];
                                 break;
-                                
-                            default:
+                            case AXImageFetchRequestStateNotStarted:
                                 break;
                         }
                     }];
