@@ -22,6 +22,8 @@
 		B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */; };
 		B3AC184815042127008F8288 /* SUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC184715042127008F8288 /* SUIWebView.m */; };
 		B3AC185315045374008F8288 /* AXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC185215045374008F8288 /* AXImageView.m */; };
+		B3FBB55B15045FD000DAC2DE /* SAXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FBB55A15045FD000DAC2DE /* SAXImageView.m */; };
+		B3FBB55E1504617500DAC2DE /* SAXImageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3FBB55D1504617500DAC2DE /* SAXImageViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,10 @@
 		B3AC184715042127008F8288 /* SUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUIWebView.m; path = "Sample App/SUIWebView.m"; sourceTree = SOURCE_ROOT; };
 		B3AC185115045374008F8288 /* AXImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageView.h; path = AXKit/AXImageView.h; sourceTree = "<group>"; };
 		B3AC185215045374008F8288 /* AXImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXImageView.m; path = AXKit/AXImageView.m; sourceTree = "<group>"; };
+		B3FBB55915045FD000DAC2DE /* SAXImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAXImageView.h; path = "Sample App/SAXImageView.h"; sourceTree = SOURCE_ROOT; };
+		B3FBB55A15045FD000DAC2DE /* SAXImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAXImageView.m; path = "Sample App/SAXImageView.m"; sourceTree = SOURCE_ROOT; };
+		B3FBB55C1504617500DAC2DE /* SAXImageViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAXImageViewCell.h; path = "Sample App/SAXImageViewCell.h"; sourceTree = SOURCE_ROOT; };
+		B3FBB55D1504617500DAC2DE /* SAXImageViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAXImageViewCell.m; path = "Sample App/SAXImageViewCell.m"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,6 +125,10 @@
 				B3A20286149326D300077100 /* SAXImageFetchRequest.m */,
 				B39C3F0C1493DEE800E59557 /* SAXImageFetchRequestStack.h */,
 				B39C3F0D1493DEE800E59557 /* SAXImageFetchRequestStack.m */,
+				B3FBB55915045FD000DAC2DE /* SAXImageView.h */,
+				B3FBB55A15045FD000DAC2DE /* SAXImageView.m */,
+				B3FBB55C1504617500DAC2DE /* SAXImageViewCell.h */,
+				B3FBB55D1504617500DAC2DE /* SAXImageViewCell.m */,
 				B3AC184615042127008F8288 /* SUIWebView.h */,
 				B3AC184715042127008F8288 /* SUIWebView.m */,
 				B39C3F0F1493E10900E59557 /* SAXImageCacheData.plist */,
@@ -234,6 +244,8 @@
 				B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */,
 				B3AC184815042127008F8288 /* SUIWebView.m in Sources */,
 				B3AC185315045374008F8288 /* AXImageView.m in Sources */,
+				B3FBB55B15045FD000DAC2DE /* SAXImageView.m in Sources */,
+				B3FBB55E1504617500DAC2DE /* SAXImageViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
