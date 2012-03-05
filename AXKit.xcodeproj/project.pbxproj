@@ -21,6 +21,7 @@
 		B3A20287149326D300077100 /* SAXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A20286149326D300077100 /* SAXImageFetchRequest.m */; };
 		B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */; };
 		B3AC184815042127008F8288 /* SUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC184715042127008F8288 /* SUIWebView.m */; };
+		B3AC185315045374008F8288 /* AXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC185215045374008F8288 /* AXImageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,8 @@
 		B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AXExtendedAppearance.m"; path = "AXKit/UIWebView+AXExtendedAppearance.m"; sourceTree = "<group>"; };
 		B3AC184615042127008F8288 /* SUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUIWebView.h; path = "Sample App/SUIWebView.h"; sourceTree = SOURCE_ROOT; };
 		B3AC184715042127008F8288 /* SUIWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SUIWebView.m; path = "Sample App/SUIWebView.m"; sourceTree = SOURCE_ROOT; };
+		B3AC185115045374008F8288 /* AXImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXImageView.h; path = AXKit/AXImageView.h; sourceTree = "<group>"; };
+		B3AC185215045374008F8288 /* AXImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXImageView.m; path = AXKit/AXImageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,20 +134,22 @@
 				B3A2027D1493040800077100 /* AXKit.h */,
 				B3A2028014930CEA00077100 /* AXConstants.h */,
 				B3A2028114930CEA00077100 /* AXConstants.m */,
-				B3AC183B15041ED4008F8288 /* Web Images */,
+				B3AC183B15041ED4008F8288 /* Remote Images */,
 			);
 			name = AXKit;
 			sourceTree = "<group>";
 		};
-		B3AC183B15041ED4008F8288 /* Web Images */ = {
+		B3AC183B15041ED4008F8288 /* Remote Images */ = {
 			isa = PBXGroup;
 			children = (
 				B3A202771492F59000077100 /* AXImageFetchRequest.h */,
 				B3A202781492F59000077100 /* AXImageFetchRequest.m */,
 				B3106F101495C73F00DAD281 /* AXImageFetchRequestStack.h */,
 				B3106F111495C73F00DAD281 /* AXImageFetchRequestStack.m */,
+				B3AC185115045374008F8288 /* AXImageView.h */,
+				B3AC185215045374008F8288 /* AXImageView.m */,
 			);
-			name = "Web Images";
+			name = "Remote Images";
 			sourceTree = "<group>";
 		};
 		B3AC183D15041F2C008F8288 /* UIWebView+AXExtendedAppearance */ = {
@@ -182,7 +187,7 @@
 		B3A202431492F13000077100 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0420;
+				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = axiixc.com;
 			};
 			buildConfigurationList = B3A202461492F13000077100 /* Build configuration list for PBXProject "AXKit" */;
@@ -228,6 +233,7 @@
 				B37D0E81149A9A4E00E3599C /* SAXImageFetchRequestStack.m in Sources */,
 				B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */,
 				B3AC184815042127008F8288 /* SUIWebView.m in Sources */,
+				B3AC185315045374008F8288 /* AXImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
