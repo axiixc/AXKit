@@ -11,10 +11,9 @@
 typedef enum {
     AXWebViewAppearanceRemoveShadows = 1 << 0,
     AXWebViewAppearanceTransparent = 1 << 1,
-    AXWebViewAppearanceDiscardKeyboardAccessoryView = 1 << 2,
 } AXWebViewAppearanceOptions;
 
-#define AXWebViewAppearanceOptionsAll (AXWebViewAppearanceRemoveShadows|AXWebViewAppearanceTransparent|AXWebViewAppearanceDiscardKeyboardAccessoryView)
+#define AXWebViewAppearanceOptionsAll (AXWebViewAppearanceRemoveShadows|AXWebViewAppearanceTransparent)
 
 @interface UIWebView (AXExtendedAppearance)
 

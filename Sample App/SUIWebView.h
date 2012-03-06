@@ -8,8 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class AXWebView;
+
 @interface SUIWebView : UIViewController
 
-@property (strong, nonatomic) IBOutlet UIWebView * webView;
+@property (strong, nonatomic) IBOutlet AXWebView * webView;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem * hideKeyboardButton;
+
+- (IBAction)hideKeyboard;
 
 @end

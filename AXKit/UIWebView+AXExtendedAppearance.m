@@ -25,11 +25,6 @@
         self.opaque = NO;
         self.backgroundColor = [UIColor clearColor];
     }
-    
-    if (options & AXWebViewAppearanceDiscardKeyboardAccessoryView)
-    {
-        // TODO: not yet implemented
-    }
 }
 
 @end

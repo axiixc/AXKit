@@ -19,6 +19,8 @@
 		B3A2028214930CEA00077100 /* AXConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2028114930CEA00077100 /* AXConstants.m */; };
 		B3A20284149321F000077100 /* SampleApp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3A20283149321F000077100 /* SampleApp.storyboard */; };
 		B3A20287149326D300077100 /* SAXImageFetchRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A20286149326D300077100 /* SAXImageFetchRequest.m */; };
+		B3A9DD5215058D91006191FC /* AXWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A9DD5115058D91006191FC /* AXWebView.m */; };
+		B3A9DD73150598B8006191FC /* JRSwizzle.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A9DD56150598B8006191FC /* JRSwizzle.m */; };
 		B3AC184015041F58008F8288 /* UIWebView+AXExtendedAppearance.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */; };
 		B3AC184815042127008F8288 /* SUIWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC184715042127008F8288 /* SUIWebView.m */; };
 		B3AC185315045374008F8288 /* AXImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3AC185215045374008F8288 /* AXImageView.m */; };
@@ -49,6 +51,10 @@
 		B3A20283149321F000077100 /* SampleApp.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SampleApp.storyboard; path = "Sample App/SampleApp.storyboard"; sourceTree = SOURCE_ROOT; };
 		B3A20285149326D300077100 /* SAXImageFetchRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SAXImageFetchRequest.h; path = "Sample App/SAXImageFetchRequest.h"; sourceTree = SOURCE_ROOT; };
 		B3A20286149326D300077100 /* SAXImageFetchRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SAXImageFetchRequest.m; path = "Sample App/SAXImageFetchRequest.m"; sourceTree = SOURCE_ROOT; };
+		B3A9DD5015058D91006191FC /* AXWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AXWebView.h; path = AXKit/AXWebView.h; sourceTree = "<group>"; };
+		B3A9DD5115058D91006191FC /* AXWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AXWebView.m; path = AXKit/AXWebView.m; sourceTree = "<group>"; };
+		B3A9DD55150598B8006191FC /* JRSwizzle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JRSwizzle.h; sourceTree = "<group>"; };
+		B3A9DD56150598B8006191FC /* JRSwizzle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JRSwizzle.m; sourceTree = "<group>"; };
 		B3AC183E15041F57008F8288 /* UIWebView+AXExtendedAppearance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIWebView+AXExtendedAppearance.h"; path = "AXKit/UIWebView+AXExtendedAppearance.h"; sourceTree = "<group>"; };
 		B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIWebView+AXExtendedAppearance.m"; path = "AXKit/UIWebView+AXExtendedAppearance.m"; sourceTree = "<group>"; };
 		B3AC184615042127008F8288 /* SUIWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SUIWebView.h; path = "Sample App/SUIWebView.h"; sourceTree = SOURCE_ROOT; };
@@ -108,6 +114,7 @@
 		B3A2024F1492F13000077100 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B3A9DD54150598B8006191FC /* JRSwizzle */,
 				B3A202501492F13000077100 /* UIKit.framework */,
 				B3A202521492F13000077100 /* Foundation.framework */,
 				B3A202541492F13000077100 /* CoreGraphics.framework */,
@@ -149,6 +156,15 @@
 			name = AXKit;
 			sourceTree = "<group>";
 		};
+		B3A9DD54150598B8006191FC /* JRSwizzle */ = {
+			isa = PBXGroup;
+			children = (
+				B3A9DD55150598B8006191FC /* JRSwizzle.h */,
+				B3A9DD56150598B8006191FC /* JRSwizzle.m */,
+			);
+			path = JRSwizzle;
+			sourceTree = "<group>";
+		};
 		B3AC183B15041ED4008F8288 /* Remote Images */ = {
 			isa = PBXGroup;
 			children = (
@@ -167,6 +183,8 @@
 			children = (
 				B3AC183E15041F57008F8288 /* UIWebView+AXExtendedAppearance.h */,
 				B3AC183F15041F57008F8288 /* UIWebView+AXExtendedAppearance.m */,
+				B3A9DD5015058D91006191FC /* AXWebView.h */,
+				B3A9DD5115058D91006191FC /* AXWebView.m */,
 			);
 			name = "UIWebView+AXExtendedAppearance";
 			sourceTree = "<group>";
@@ -246,6 +264,8 @@
 				B3AC185315045374008F8288 /* AXImageView.m in Sources */,
 				B3FBB55B15045FD000DAC2DE /* SAXImageView.m in Sources */,
 				B3FBB55E1504617500DAC2DE /* SAXImageViewCell.m in Sources */,
+				B3A9DD5215058D91006191FC /* AXWebView.m in Sources */,
+				B3A9DD73150598B8006191FC /* JRSwizzle.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
