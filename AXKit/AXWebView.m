@@ -7,6 +7,9 @@
 //
 
 #import "AXWebView.h"
+#import "AXConstants.h"
+
+#ifdef AX_PRIVATE_API
 #import "JRSwizzle.h"
 #import <objc/runtime.h>
 
@@ -74,9 +77,11 @@ static char kAXWebBrowserViewCustomAccessoryViewKey;
 }
 
 @end
+#endif
 
 @implementation AXWebView
 
+#ifdef AX_PRIVATE_API
 - (UIView *)getWebBrowserView
 {
     UIView * scroller = [self.subviews objectAtIndex:0];
@@ -109,5 +114,6 @@ static char kAXWebBrowserViewCustomAccessoryViewKey;
     UIWebBrowserView * browserView = (UIWebBrowserView *)[self getWebBrowserView];
     [browserView resignFirstResponder];
 }
+#endif
 
 @end

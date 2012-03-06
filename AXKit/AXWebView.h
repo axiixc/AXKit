@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIWebView+AXExtendedAppearance.h"
 
 @interface AXWebView : UIWebView
 
+#ifdef AX_PRIVATE_API
 @property (readwrite) UIView * inputAccessoryView;
 - (void)dismissKeyboard;
 
 - (void)setDefaultInputAccessoryView;
+#endif
 
 @end

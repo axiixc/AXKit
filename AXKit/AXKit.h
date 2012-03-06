@@ -6,8 +6,16 @@
 //  Copyright (c) 2011 axiixc.com. All rights reserved.
 //
 
+// Put "#define AX_PRIVATE_API" in your app's .pch to enabled
+// code using non-SDK compliant APIs.
+
 #import "AXConstants.h"
 
-// Image Fetching
-#import "AXImageCache.h"
+// Remote Images
 #import "AXImageFetchRequest.h"
+#import "AXImageFetchRequestStack.h"
+#import "AXImageView.h"
+
+// Web View
+#import "AXWebView.h"
+#import "UIWebView+AXExtendedAppearance.h"

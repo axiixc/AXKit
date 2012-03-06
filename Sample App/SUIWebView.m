@@ -8,6 +8,7 @@
 
 #import "SUIWebView.h"
 #import "AXWebView.h"
+#import "UIWebView+AXExtendedAppearance.h"
 
 @implementation SUIWebView
 
@@ -19,11 +20,17 @@
     [super viewDidLoad];
 	
     [self.webView makeCustomAppearance_ax:AXWebViewAppearanceOptionsAll];
+#ifdef AX_PRIVATE_API
     [self.webView setInputAccessoryView:nil];
+#endif
     [self.webView loadHTMLString:@"<h1>Custom Web View</h1>"
                                  @"<input type='text' placeholder='text field' />"
                                  @"<input type='email' placeholder='another text field' />"
                          baseURL:nil];
+    
+#ifndef AX_PRIVATE_API
+    self.navigationItem.rightBarButtonItem = nil;
+#endif
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -63,7 +70,9 @@
 
 - (void)hideKeyboard
 {
+#ifdef AX_PRIVATE_API
     [self.webView dismissKeyboard];
+#endif
 }
 
 @end
