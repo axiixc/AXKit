@@ -17,63 +17,36 @@
 @end
 
 @interface UIWebBrowserView (PleaseDontHateMeApple)
-
-- (void)setUseCustomInputAccessoryView_ax:(BOOL)useCustomAcessoryView;
-- (BOOL)useCustomInputAccessoryView_ax;
-
-- (void)setCustomInputAccessoryView_ax:(UIView *)view;
-- (UIView *)customInputAccessoryView_ax;
-
 @end
 
 @implementation UIWebBrowserView (PleaseDontHateMeApple)
 
-static char kAXWebBrowserViewUseCustomAcessoryViewKey;
-static char kAXWebBrowserViewCustomAccessoryViewKey;
-
-- (UIView *)inputAccessoryViewWithSupportForOverrides_ax
+- (AXWebView *)parentWebView_ax
 {
-    return (self.useCustomInputAccessoryView_ax) ? self.customInputAccessoryView_ax : [self inputAccessoryViewWithSupportForOverrides_ax];
-}
-
-- (void)setUseCustomInputAccessoryView_ax:(BOOL)useCustomAcessoryView
-{
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        NSError * error;
-        [UIWebBrowserView jr_swizzleMethod:@selector(inputAccessoryView) withMethod:@selector(customInputAccessoryView_ax) error:&error];
-        
-        // TODO: Make more effective
-        if (error) {
-            NSLog(@"%@", error);
-        }
-    });
-    
-    if (self.useCustomInputAccessoryView_ax == useCustomAcessoryView) return;
-    
-    objc_setAssociatedObject(self, 
-                             &kAXWebBrowserViewUseCustomAcessoryViewKey, 
-                             [NSNumber numberWithBool:useCustomAcessoryView], 
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-- (BOOL)useCustomInputAccessoryView_ax
-{
-    NSNumber * useCustomAcessoryView = objc_getAssociatedObject(self, &kAXWebBrowserViewUseCustomAcessoryViewKey);
-    return (useCustomAcessoryView) ? [useCustomAcessoryView boolValue] : NO;
-}
-
-- (void)setCustomInputAccessoryView_ax:(UIView *)view
-{
-    objc_setAssociatedObject(self, 
-                             &kAXWebBrowserViewCustomAccessoryViewKey, 
-                             view, 
-                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    UIView * superview = [self superview];
+    while (superview != nil && ![superview.class.description isEqualToString:@"AXWebView"])
+        superview = [superview superview];
+    return (AXWebView *)superview;
 }
 
 - (UIView *)customInputAccessoryView_ax
 {
-    return objc_getAssociatedObject(self, &kAXWebBrowserViewCustomAccessoryViewKey);
+    AXWebView * parentWebView = self.parentWebView_ax;
+    return ([parentWebView shouldOverrideWebDocumentViewInputAcessoryView_ax]) ?
+    [parentWebView inputAccessoryView] : [self customInputAccessoryView_ax];
+}
+
+- (BOOL)customCanPerformAction_ax:(SEL)action withSender:(id)sender
+{
+    AXWebView * parentWebView = self.parentWebView_ax;
+    
+    if (!parentWebView)
+        return [self customCanPerformAction_ax:action withSender:sender];
+    
+    int overrideValue = [parentWebView canPerformWebDocumentViewAction_ax:action withSender:sender];
+    if (overrideValue < 0) return NO;
+    if (overrideValue > 0) return YES;
+    else return [self customCanPerformAction_ax:action withSender:sender];
 }
 
 @end
@@ -82,6 +55,9 @@ static char kAXWebBrowserViewCustomAccessoryViewKey;
 @implementation AXWebView
 
 #ifdef AX_PRIVATE_API
+@synthesize inputAccessoryView;
+@synthesize useDefaultWhenInputAccessoryViewNil_ax;
+
 - (UIView *)getWebBrowserView
 {
     UIView * scroller = [self.subviews objectAtIndex:0];
@@ -91,28 +67,66 @@ static char kAXWebBrowserViewCustomAccessoryViewKey;
     return nil;
 }
 
-- (UIView *)inputAccessoryView
-{
-    return [[self getWebBrowserView] inputAccessoryView];
-}
-
-- (void)setInputAccessoryView:(UIView *)inputAccessoryView
-{
-    UIWebBrowserView * browserView = (UIWebBrowserView *)[self getWebBrowserView];
-    [browserView setUseCustomInputAccessoryView_ax:YES];
-    [browserView setCustomInputAccessoryView_ax:inputAccessoryView];
-}
-
-- (void)setDefaultInputAccessoryView
-{
-    UIWebBrowserView * browserView = (UIWebBrowserView *)[self getWebBrowserView];
-    [browserView setUseCustomInputAccessoryView_ax:NO];
-}
-
 - (void)dismissKeyboard
 {
     UIWebBrowserView * browserView = (UIWebBrowserView *)[self getWebBrowserView];
     [browserView resignFirstResponder];
+}
+
+- (BOOL)shouldOverrideWebDocumentViewInputAcessoryView_ax
+{
+    return (!self.useDefaultWhenInputAccessoryViewNil_ax || self.inputAccessoryView != nil);
+}
+
+- (int)canPerformWebDocumentViewAction_ax:(SEL)action withSender:(id)sender
+{
+    return 0;
+}
+
+- (void)setup_ax
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSError * error;
+        [UIWebBrowserView
+         jr_swizzleMethod:@selector(inputAccessoryView)
+         withMethod:@selector(customInputAccessoryView_ax)
+         error:&error];
+        
+        if (error) {
+            NSLog(@"AXWebView: Error swizzeling inputAccessoryView methods.\n%@", error);
+        }
+        
+        [UIWebBrowserView
+         jr_swizzleMethod:@selector(canPerformAction:withSender:)
+         withMethod:@selector(customCanPerformAction_ax:withSender:)
+         error:&error];
+        
+        if (error) {
+            NSLog(@"AXWebView: Error swizzeling canPerformAction:withSender:.\n%@", error);
+        }
+    });
+}
+
+- (id)init
+{
+    if ((self = [super init]))
+        [self setup_ax];
+    return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    if ((self = [super initWithCoder:aDecoder]))
+        [self setup_ax];
+    return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    if ((self = [super initWithFrame:frame]))
+        [self setup_ax];
+    return self;
 }
 #endif
 

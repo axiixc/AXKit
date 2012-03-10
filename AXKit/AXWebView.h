@@ -11,10 +11,20 @@
 @interface AXWebView : UIWebView
 
 #ifdef AX_PRIVATE_API
-@property (readwrite) UIView * inputAccessoryView;
+@property (strong, readwrite) UIView * inputAccessoryView;
+@property (assign, readwrite) BOOL useDefaultWhenInputAccessoryViewNil_ax;
 - (void)dismissKeyboard;
-
-- (void)setDefaultInputAccessoryView;
 #endif
 
 @end
+
+#ifdef AX_PRIVATE_API
+@interface AXWebView (CanOverrideInSubclasses)
+- (BOOL)shouldOverrideWebDocumentViewInputAcessoryView_ax;
+
+// (< 0) NO
+// (= 0) DEFAULT
+// (> 0) YES
+- (int)canPerformWebDocumentViewAction_ax:(SEL)action withSender:(id)sender;
+@end
+#endif

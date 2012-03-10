@@ -22,6 +22,7 @@
     [self.webView makeCustomAppearance_ax:AXWebViewAppearanceOptionsAll];
 #ifdef AX_PRIVATE_API
     [self.webView setInputAccessoryView:nil];
+    [self.webView setUseDefaultWhenInputAccessoryViewNil_ax:NO];
 #endif
     [self.webView loadHTMLString:@"<h1>Custom Web View</h1>"
                                  @"<input type='text' placeholder='text field' />"
