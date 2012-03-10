@@ -24,7 +24,7 @@
 - (AXWebView *)parentWebView_ax
 {
     UIView * superview = [self superview];
-    while (superview != nil && ![superview.class.description isEqualToString:@"AXWebView"])
+    while (superview != nil && ![superview isKindOfClass:[AXWebView class]])
         superview = [superview superview];
     return (AXWebView *)superview;
 }
